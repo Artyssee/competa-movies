@@ -1,15 +1,33 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteSearchItem } from '../../redux/actions/movieActions';
 
-const MovieList = () => {
-    const movies = useSelector(state => state.movies);
+
+const SearchHistory = () => {
+
+    const content = useSelector(state => state.movies.querys);
+    const dispatch = useDispatch();
+
+    const searchItems = content.map(item => {
+
+        const onClick = () => {    
+            dispatch(deleteSearchItem(content, item.id))
+        }
+
+        return(
+            <div key={item.id}>
+                <h5>{item.title}</h5>
+                <button onClick={onClick}>Delete searchitem</button>
+            </div>
+        );
+    })
 
     return (
         <div>
-            <h1>Recently searched</h1>
-            {movies}
+            <h1>SearchHistory</h1>
+            {searchItems}
         </div>
     )
 }
 
-export default MovieList;
+export default SearchHistory;

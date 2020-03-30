@@ -4,6 +4,9 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import MovieForm from './components/MovieForm';
+import SearchResults from './components/SearchResults';
+import SearchHistory from './components/SearchHistory';
+import FavoriteMovies from './components/FavoriteMovies';
 
 function App() {
   return (
@@ -14,8 +17,13 @@ function App() {
         </header>
       </div>
       <br />
+      <FavoriteMovies />
+      <hr />
       <MovieForm />
       <hr />
+      <SearchHistory />
+      <hr />
+      <SearchResults />
     </Provider>
   );
 }
