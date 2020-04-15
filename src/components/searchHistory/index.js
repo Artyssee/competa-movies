@@ -8,16 +8,15 @@ const SearchHistory = () => {
     const content = useSelector(state => state.movies.querys);
     const dispatch = useDispatch();
 
+    const onDeleteItem = (content, id) => {    
+        dispatch(deleteSearchItem(content, id))
+    }
+
     const searchItems = content.map(item => {
-
-        const onClick = () => {    
-            dispatch(deleteSearchItem(content, item.id))
-        }
-
         return(
             <div key={item.id}>
                 <h5>{item.title}</h5>
-                <button onClick={onClick}>Delete searchitem</button>
+                <button onClick={() => onDeleteItem(content, item.id)}>Delete searchitem</button>
             </div>
         );
     })

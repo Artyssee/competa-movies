@@ -12,16 +12,19 @@ const SearchResults = () => {
 
     const dispatch = useDispatch();
 
-    const currentModal = () => {
+    const addToFavorite = (item) => {
+        dispatch(addMovieToFavorites([item, ...favorites]))
+    }
 
+    const openMovieModal = (post) => {
+        dispatch(openModal(post))
+        setModalOpen(true)
+    }
+
+    const currentModal = () => {
         if (modalOpen) {
 
             return [modal].map(item => {
-
-                const addToFavorite = () => {
-                    dispatch(addMovieToFavorites([item, ...favorites]))
-                }
-
                 return (
                     <div key={item.imdbID + 1}>
                         <h1>Highlight</h1>
@@ -31,7 +34,7 @@ const SearchResults = () => {
                             <p>Year: {item.Year}</p>
                             <p>imdbID: {item.imdbID}</p>
                         </div>
-                        <button onClick={addToFavorite}>Add to favorite</button>
+                        <button onClick={() => addToFavorite(modal)}>Add to favorite</button>
                     </div>
                 );
             })
@@ -43,21 +46,12 @@ const SearchResults = () => {
         if (content) {
             return content.map(post => {
 
-                const addToFavorite = () => {
-                    dispatch(addMovieToFavorites([post, ...favorites]))
-                }
-
-                const openMovieModal = () => {
-                    dispatch(openModal(post))
-                    setModalOpen(true)
-                }
-
                 return (
                     <div key={post.imdbID}>
                         <img src={post.Poster} alt="" />
                         <h3>{post.Title}</h3>
-                        <button onClick={addToFavorite}>Add to favorite</button>
-                        <button onClick={openMovieModal}>Vieuw details</button>
+                        <button onClick={() => addToFavorite(post)}>Add to favorite</button>
+                        <button onClick={() => openMovieModal(post)}>Vieuw details</button>
                     </div>
                 );
             })
